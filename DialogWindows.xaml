@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="EMRMS.DialogWindows"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:EMRMS"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel Margin="50,0,20,0" HorizontalAlignment="Stretch">
+            <TextBlock
+                x:Name="txtTitle"
+                HorizontalAlignment="Stretch"
+                FontSize="24"
+                Text="Mensaje Box" />
+            <TextBlock
+                x:Name="txtSubtitle"
+                HorizontalAlignment="Stretch"
+                FontSize="18"
+                Text="sajdlkasjdl" />
+            <Button
+                x:Name="btnCheck"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Right"
+                Click="Button_Click"
+                Content="Ok"
+                FontSize="25" />
+        </StackPanel>
+    </Grid>
+</Window>
