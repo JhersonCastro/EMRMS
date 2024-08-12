@@ -2,8 +2,10 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Composition;
 
 
 namespace EMRMS
@@ -24,21 +28,39 @@ namespace EMRMS
     public sealed partial class RegisterWindow : Window
     {
         bool[] _checkers;
+        public const int Height = 885, Width = 600;
         public RegisterWindow()
         {
             this.InitializeComponent();
             _checkers = new bool[5];
+
             this.Closed += (sender, e) =>
             {
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Activate();
             };
+            AppWindow.Resize(new Windows.Graphics.SizeInt32(Width, Height));
+            this.SizeChanged += (sender, e) =>
+            {
+                AppWindow.Resize(new Windows.Graphics.SizeInt32(Width, Height));
+            };
+            TeachingTip.Target = null;
+            /*Preload*/
+
+            #region Preload Animations (idk why i need do this for this shit working)
+                var infoBarVisual = ElementCompositionPreview.GetElementVisual(infoSet);
+                var compositor = infoBarVisual.Compositor;
+                var fadeInAnim = compositor.CreateScalarKeyFrameAnimation();
+                fadeInAnim.InsertKeyFrame(0.0f, 0.0f);
+                fadeInAnim.InsertKeyFrame(0.8f, 1.0f);
+                fadeInAnim.Duration = TimeSpan.FromSeconds(1);
+                infoBarVisual.StartAnimation("Opacity", fadeInAnim);
+            #endregion
         }
 
         private void txtID_TextChanged(object sender, TextChangedEventArgs e)
         {
             TeachingTip.IsOpen = false;
-            TeachingTip.Target = txtID;
             try
             {
                 long.Parse(txtID.Text);
@@ -62,11 +84,9 @@ namespace EMRMS
                 TeachingTip.IsOpen = true;
             }
         }
-
         private void txtName_TextChanged(object sender, TextChangedEventArgs e)
         {
             TeachingTip.IsOpen = false;
-            TeachingTip.Target = (FrameworkElement)sender;
             TextBox temp = (TextBox)sender;
             if (temp.Text.Length < 5)
             {
@@ -84,11 +104,10 @@ namespace EMRMS
                 _checkers[temp.Name.Equals(txtName.Name) ? 1 : 2] = true;
             }
         }
-
         private void txtPsw_PasswordChanged(object sender, RoutedEventArgs e)
         {
             TeachingTip.IsOpen = false;
-            TeachingTip.Target = txtPsw;
+            
             Regex regex = new Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$");
 
             if (!regex.Match(txtPsw.Password).Success || txtPsw.Password.Length < 8)
@@ -106,15 +125,18 @@ namespace EMRMS
         }
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-            TeachingTip.Target = calendarBirth;
+            TeachingTip.IsOpen = false;
             if ((DateTime.Now.Year - calendarBirth.Date.Value.Date.Year) < 18)
             {
                 TeachingTip.Subtitle = "Debes tener más de 18 años para poder ingresar";
+                TeachingTip.IsOpen = true;
                 _checkers[4] = false;
+                badgeCalendar.Visibility = Visibility.Visible;
             }
             else
             {
                 TeachingTip.IsOpen = false;
+                badgeCalendar.Visibility = Visibility.Collapsed;
                 _checkers[4] = true;
             }
         }
@@ -125,6 +147,13 @@ namespace EMRMS
                 if (!item)
                 {
                     infoSet.IsOpen = true;
+                    var infoBarVisual = ElementCompositionPreview.GetElementVisual(infoSet);
+                    var compositor = infoBarVisual.Compositor;
+                    var fadeInAnim = compositor.CreateScalarKeyFrameAnimation();
+                    fadeInAnim.InsertKeyFrame(0.0f, 0.0f);
+                    fadeInAnim.InsertKeyFrame(0.8f, 1.0f);
+                    fadeInAnim.Duration = TimeSpan.FromSeconds(1);
+                    infoBarVisual.StartAnimation("Opacity", fadeInAnim);
                     return;   
                 }
             }
@@ -139,7 +168,5 @@ namespace EMRMS
             
             this.Close();
         }
-
-        
     }
 }

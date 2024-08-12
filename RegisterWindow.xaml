@@ -108,7 +108,8 @@
             <TeachingTip
                 x:Name="TeachingTip"
                 Title="Ha ocurrido un error"
-                IsOpen="False">
+                IsOpen="False"
+                PreferredPlacement="Top">
                 <TeachingTip.IconSource>
                     <FontIconSource Glyph="&#xE7BA;" />
                 </TeachingTip.IconSource>
@@ -117,6 +118,7 @@
                 x:Name="infoSet"
                 IsOpen="False"
                 Message="Revisa que todos los marcos esten perfectamente puestos"
+                Opacity="1"
                 Severity="Error" />
         </StackPanel>
     </Grid>

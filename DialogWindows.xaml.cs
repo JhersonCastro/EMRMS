@@ -34,9 +34,9 @@ namespace EMRMS
             txtSubtitle.Text = subtitle;
 
             if (txtTitle.Text.Length * txtTitle.FontSize > txtSubtitle.Text.Length * txtSubtitle.FontSize)
-                MaxWidth = (int)((int)txtTitle.Text.Length * txtTitle.FontSize + 50);              
+                MaxWidth = (int)(txtTitle.Text.Length * txtTitle.FontSize + 50);              
             else
-                MaxWidth = (int)((int)txtSubtitle.Text.Length * txtSubtitle.FontSize + 50);
+                MaxWidth = (int)(txtSubtitle.Text.Length * txtSubtitle.FontSize + 50);
 
             MaxHeight = (int)(txtTitle.FontSize + txtSubtitle.FontSize + btnCheck.FontSize + 150);
 

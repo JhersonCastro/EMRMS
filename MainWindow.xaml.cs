@@ -23,22 +23,28 @@ namespace EMRMS
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        public const int Height = 500, Width = 550;
         public MainWindow()
         {
             this.InitializeComponent();
+            AppWindow.Resize(new Windows.Graphics.SizeInt32(Width, Height));
+            SizeChanged += (sender, e) =>
+            {
+               AppWindow.Resize(new Windows.Graphics.SizeInt32(Width, Height));
+            };
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Activate();
-
             this.Close();
         }
 
         private void btnLgn_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Logica del login para hacer
+
 
         }
     }
