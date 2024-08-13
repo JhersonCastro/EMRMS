@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Window
-    x:Class="EMRMS.Users.SampleUser"
+    x:Class="EMRMS.Users.User"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,15 +18,43 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.6*" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="0.8*" />
+                <ColumnDefinition Width="0.7*" />
             </Grid.ColumnDefinitions>
-            <Button
+            <AutoSuggestBox
+                x:Name="AutoSuggestBox"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="15,0,0,0"
+                AutomationProperties.Name="Basic"
+                QueryIcon="Find"
+                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                TextChanged="AutoSuggestBox_TextChanged" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.RowSpan="2"
                 Grid.Column="1"
+                Margin="15,0,0,0"
+                FontSize="24">
+                <Bold>Lionel Messi</Bold>
+            </TextBlock>
+
+
+            <Button
+                Grid.RowSpan="3"
+                Grid.Column="2"
                 Margin="5,10,10,0"
                 HorizontalAlignment="Right"
                 Background="Transparent"
+                BorderBrush="Transparent"
                 Click="Button_Click">
                 <PersonPicture x:Name="picAvatar" DisplayName="Jane Doe" />
             </Button>

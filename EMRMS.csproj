@@ -15,7 +15,7 @@
   <ItemGroup>
     <None Remove="DialogWindows.xaml" />
     <None Remove="RegisterWindow.xaml" />
-    <None Remove="Users\SampleUser.xaml" />
+    <None Remove="Users\User.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +31,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -66,7 +67,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Users\SampleUser.xaml">
+    <Page Update="Users\User.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

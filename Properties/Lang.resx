@@ -156,6 +156,24 @@
   <data name="SuccessfulRegTitle" xml:space="preserve">
     <value>Successful register</value>
   </data>
+  <data name="TeachingTipAdultReq" xml:space="preserve">
+    <value>You must be over 18 years old to enter</value>
+  </data>
+  <data name="TeachingTipIDMin8" xml:space="preserve">
+    <value>The id must have min 8 digits</value>
+  </data>
+  <data name="TeachingTipIDMustNumber" xml:space="preserve">
+    <value>The id must have a number</value>
+  </data>
+  <data name="TeachingTipMin5Chars" xml:space="preserve">
+    <value>Min 5 chars</value>
+  </data>
+  <data name="TeachingTipReqPassword" xml:space="preserve">
+    <value>The password must have at least one uppercase letter, one symbol and one number, in addition to 8 characters</value>
+  </data>
+  <data name="TeachingTipTitleRegister" xml:space="preserve">
+    <value>Something wrong...</value>
+  </data>
   <data name="WrongCredentials" xml:space="preserve">
     <value>Wrong credentials. Try again</value>
   </data>

@@ -1,17 +1,4 @@
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Graphics;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -34,7 +21,7 @@ namespace EMRMS
             txtSubtitle.Text = subtitle;
 
             if (txtTitle.Text.Length * txtTitle.FontSize > txtSubtitle.Text.Length * txtSubtitle.FontSize)
-                MaxWidth = (int)(txtTitle.Text.Length * txtTitle.FontSize + 50);              
+                MaxWidth = (int)(txtTitle.Text.Length * txtTitle.FontSize + 50);
             else
                 MaxWidth = (int)(txtSubtitle.Text.Length * txtSubtitle.FontSize + 50);
 

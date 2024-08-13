@@ -178,6 +178,60 @@ namespace EMRMS.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must be over 18 years old to enter.
+        /// </summary>
+        internal static string TeachingTipAdultReq {
+            get {
+                return ResourceManager.GetString("TeachingTipAdultReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The id must have min 8 digits.
+        /// </summary>
+        internal static string TeachingTipIDMin8 {
+            get {
+                return ResourceManager.GetString("TeachingTipIDMin8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The id must have a number.
+        /// </summary>
+        internal static string TeachingTipIDMustNumber {
+            get {
+                return ResourceManager.GetString("TeachingTipIDMustNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min 5 chars.
+        /// </summary>
+        internal static string TeachingTipMin5Chars {
+            get {
+                return ResourceManager.GetString("TeachingTipMin5Chars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must have at least one uppercase letter, one symbol and one number, in addition to 8 characters.
+        /// </summary>
+        internal static string TeachingTipReqPassword {
+            get {
+                return ResourceManager.GetString("TeachingTipReqPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something wrong....
+        /// </summary>
+        internal static string TeachingTipTitleRegister {
+            get {
+                return ResourceManager.GetString("TeachingTipTitleRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wrong credentials. Try again.
         /// </summary>
         internal static string WrongCredentials {

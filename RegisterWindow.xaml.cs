@@ -1,24 +1,11 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Hosting;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Animation;
-using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Composition;
 
 
 namespace EMRMS
@@ -47,7 +34,7 @@ namespace EMRMS
             {
                 AppWindow.Resize(new Windows.Graphics.SizeInt32
                     (AppWindow.Size.Width >= minWidth && AppWindow.Size.Width <= maxWidth
-                    ? AppWindow.Size.Width : AppWindow.Size.Width < minWidth 
+                    ? AppWindow.Size.Width : AppWindow.Size.Width < minWidth
                     ? minWidth : maxWidth,
 
                     AppWindow.Size.Height >= minHeight && AppWindow.Size.Height <= maxHeight
@@ -57,15 +44,15 @@ namespace EMRMS
             };
             TeachingTip.Target = null;
 
-            changelang("us");
+            changelang(App.language);
             #region Preload Animations (idk why i need do this for this shit working)
-                var infoBarVisual = ElementCompositionPreview.GetElementVisual(infoSet);
-                var compositor = infoBarVisual.Compositor;
-                var fadeInAnim = compositor.CreateScalarKeyFrameAnimation();
-                fadeInAnim.InsertKeyFrame(0.0f, 0.0f);
-                fadeInAnim.InsertKeyFrame(0.8f, 1.0f);
-                fadeInAnim.Duration = TimeSpan.FromSeconds(1);
-                infoBarVisual.StartAnimation("Opacity", fadeInAnim);
+            var infoBarVisual = ElementCompositionPreview.GetElementVisual(infoSet);
+            var compositor = infoBarVisual.Compositor;
+            var fadeInAnim = compositor.CreateScalarKeyFrameAnimation();
+            fadeInAnim.InsertKeyFrame(0.0f, 0.0f);
+            fadeInAnim.InsertKeyFrame(0.8f, 1.0f);
+            fadeInAnim.Duration = TimeSpan.FromSeconds(1);
+            infoBarVisual.StartAnimation("Opacity", fadeInAnim);
             #endregion
         }
         private void changelang(string lang)
@@ -83,6 +70,7 @@ namespace EMRMS
             calendarBirth.Header = Properties.Lang.HeaderCalendar;
             calendarBirth.PlaceholderText = Properties.Lang.PlaceHolderCalendar;
             infoSet.Message = Properties.Lang.IncorrectRegister;
+            TeachingTip.Title = Properties.Lang.TeachingTipTitleRegister;
         }
         private void txtID_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -92,9 +80,10 @@ namespace EMRMS
                 long.Parse(txtID.Text);
                 if (txtID.Text == string.Empty || txtID.Text.Length < 8)
                 {
-                    TeachingTip.Subtitle = "No se puede dejar vacio o debe tener más de 8 digitos";
+                    TeachingTip.Subtitle = Properties.Lang.TeachingTipIDMin8;
                     TeachingTip.IsOpen = true;
                     badgeID.Visibility = Visibility.Visible;
+                    _checkers[0] = false;
                 }
                 else
                 {
@@ -106,7 +95,8 @@ namespace EMRMS
             catch (Exception)
             {
                 badgeID.Visibility = Visibility.Visible;
-                TeachingTip.Subtitle = "¡El ID debe ser un numero!";
+                TeachingTip.Subtitle = Properties.Lang.TeachingTipIDMustNumber;
+                _checkers[0] = false;
                 TeachingTip.IsOpen = true;
             }
         }
@@ -116,7 +106,7 @@ namespace EMRMS
             TextBox temp = (TextBox)sender;
             if (temp.Text.Length < 5)
             {
-                TeachingTip.Subtitle = "Minimo 5 caracteres";
+                TeachingTip.Subtitle = Properties.Lang.TeachingTipMin5Chars;
                 badgeName.Visibility = Visibility.Visible;
                 TeachingTip.IsOpen = true;
                 _checkers[temp.Name.Equals(txtName.Name) ? 1 : 2] = false;
@@ -125,7 +115,7 @@ namespace EMRMS
             {
                 if (_checkers[1] && _checkers[2])
                     badgeName.Visibility = Visibility.Collapsed;
-                 
+
                 TeachingTip.IsOpen = false;
                 _checkers[temp.Name.Equals(txtName.Name) ? 1 : 2] = true;
             }
@@ -133,12 +123,12 @@ namespace EMRMS
         private void txtPsw_PasswordChanged(object sender, RoutedEventArgs e)
         {
             TeachingTip.IsOpen = false;
-            
+
             Regex regex = new Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$");
 
             if (!regex.Match(txtPsw.Password).Success || txtPsw.Password.Length < 8)
             {
-                TeachingTip.Subtitle = "La contraseña debe tener al menos una mayuscula, un simbolo y un numero, ademas de 8 caracteres";
+                TeachingTip.Subtitle = Properties.Lang.TeachingTipReqPassword;
                 TeachingTip.IsOpen = true;
                 badgePsw.Visibility = Visibility.Visible;
             }
@@ -154,7 +144,7 @@ namespace EMRMS
             TeachingTip.IsOpen = false;
             if ((DateTime.Now.Year - calendarBirth.Date.Value.Date.Year) < 18)
             {
-                TeachingTip.Subtitle = "Debes tener más de 18 años para poder ingresar";
+                TeachingTip.Subtitle = Properties.Lang.TeachingTipAdultReq;
                 TeachingTip.IsOpen = true;
                 _checkers[4] = false;
                 badgeCalendar.Visibility = Visibility.Visible;
@@ -180,14 +170,14 @@ namespace EMRMS
                     fadeInAnim.InsertKeyFrame(0.8f, 1.0f);
                     fadeInAnim.Duration = TimeSpan.FromSeconds(1);
                     infoBarVisual.StartAnimation("Opacity", fadeInAnim);
-                    return;   
+                    return;
                 }
             }
             infoSet.IsOpen = false;
-            
+
             DialogWindows dialogWindows = new DialogWindows(
                 Properties.Lang.SuccessfulRegTitle,
-                Properties.Lang.SuccessfulRegSubTitle, 
+                Properties.Lang.SuccessfulRegSubTitle,
                 this);
 
             TaskCompletionSource<bool> _tcs;
@@ -195,7 +185,7 @@ namespace EMRMS
             dialogWindows.Closed += (sender, args) => _tcs.SetResult(true);
             dialogWindows.Activate();
             await _tcs.Task;
-            
+
             this.Close();
         }
     }
