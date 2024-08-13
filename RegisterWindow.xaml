@@ -13,6 +13,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock
+            x:Name="txtTitle"
             Margin="0,20,0,0"
             HorizontalAlignment="Center"
             FontFamily="TIMES NEW ROMAN"
@@ -20,106 +21,112 @@
             Foreground="AntiqueWhite">
             <Bold>Sign Up</Bold>
         </TextBlock>
-        <StackPanel
-            Grid.Row="1"
-            Margin="20,0,20,0"
-            HorizontalAlignment="Stretch"
-            Orientation="Vertical">
-            <TextBox
-                x:Name="txtID"
-                Margin="5"
-                Header="ID"
-                PlaceholderText="Enter your ID"
-                TextChanged="txtID_TextChanged" />
-            <InfoBadge
-                x:Name="badgeID"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="#C42B1C">
-                <InfoBadge.IconSource>
-                    <FontIconSource Glyph="&#xE783;" />
-                </InfoBadge.IconSource>
-            </InfoBadge>
+        <ScrollView Grid.Row="1">
 
-            <TextBox
-                x:Name="txtName"
-                Margin="5"
-                Header="Name"
-                PlaceholderText="Enter your name"
-                TextChanged="txtName_TextChanged" />
-
-            <TextBox
-                x:Name="txtLastName"
-                Margin="5"
-                Header="Last Name"
-                PlaceholderText="Enter your last name"
-                TextChanged="txtName_TextChanged" />
-            <InfoBadge
-                x:Name="badgeName"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="#C42B1C">
-                <InfoBadge.IconSource>
-                    <FontIconSource Glyph="&#xE783;" />
-                </InfoBadge.IconSource>
-            </InfoBadge>
-            <PasswordBox
-                x:Name="txtPsw"
-                Margin="5"
-                Header="Password"
-                PasswordChanged="txtPsw_PasswordChanged"
-                PasswordChar="*"
-                PlaceholderText="Enter your password" />
-            <InfoBadge
-                x:Name="badgePsw"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="#C42B1C">
-                <InfoBadge.IconSource>
-                    <FontIconSource Glyph="&#xE783;" />
-                </InfoBadge.IconSource>
-            </InfoBadge>
-            <CalendarDatePicker
-                x:Name="calendarBirth"
-                Margin="0,0,0,05"
+            <StackPanel
+                Margin="20,0,20,0"
                 HorizontalAlignment="Stretch"
-                DateChanged="CalendarDatePicker_DateChanged"
-                Header="Date of birthday"
-                PlaceholderText="Pick ur birthday date" />
-            <InfoBadge
-                x:Name="badgeCalendar"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="#C42B1C">
-                <InfoBadge.IconSource>
-                    <FontIconSource Glyph="&#xE783;" />
-                </InfoBadge.IconSource>
-            </InfoBadge>
+                Orientation="Vertical">
+                <TextBox
+                    x:Name="txtID"
+                    Margin="5"
+                    Header="ID"
+                    PlaceholderText="Enter your ID"
+                    TextChanged="txtID_TextChanged" />
+                <InfoBadge
+                    x:Name="badgeID"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#C42B1C">
+                    <InfoBadge.IconSource>
+                        <FontIconSource Glyph="&#xE783;" />
+                    </InfoBadge.IconSource>
+                </InfoBadge>
 
-            <Button
-                x:Name="btnRegister"
-                Margin="10"
-                HorizontalAlignment="Center"
-                Click="btnRegister_Click">
-                <TextBlock>
-                    <Bold>SIGN UP</Bold>
-                </TextBlock>
-            </Button>
-            <TeachingTip
-                x:Name="TeachingTip"
-                Title="Ha ocurrido un error"
-                IsOpen="False"
-                PreferredPlacement="Top">
-                <TeachingTip.IconSource>
-                    <FontIconSource Glyph="&#xE7BA;" />
-                </TeachingTip.IconSource>
-            </TeachingTip>
-            <InfoBar
-                x:Name="infoSet"
-                IsOpen="False"
-                Message="Revisa que todos los marcos esten perfectamente puestos"
-                Opacity="1"
-                Severity="Error" />
-        </StackPanel>
+                <TextBox
+                    x:Name="txtName"
+                    Margin="5"
+                    Header="Name"
+                    PlaceholderText="Enter your name"
+                    TextChanged="txtName_TextChanged" />
+
+                <TextBox
+                    x:Name="txtLastName"
+                    Margin="5"
+                    Header="Last Name"
+                    PlaceholderText="Enter your last name"
+                    TextChanged="txtName_TextChanged" />
+                <InfoBadge
+                    x:Name="badgeName"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#C42B1C">
+                    <InfoBadge.IconSource>
+                        <FontIconSource Glyph="&#xE783;" />
+                    </InfoBadge.IconSource>
+                </InfoBadge>
+                <PasswordBox
+                    x:Name="txtPsw"
+                    Margin="5"
+                    Header="Password"
+                    PasswordChanged="txtPsw_PasswordChanged"
+                    PasswordChar="*"
+                    PlaceholderText="Enter your password" />
+                <InfoBadge
+                    x:Name="badgePsw"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#C42B1C">
+                    <InfoBadge.IconSource>
+                        <FontIconSource Glyph="&#xE783;" />
+                    </InfoBadge.IconSource>
+                </InfoBadge>
+                <CalendarDatePicker
+                    x:Name="calendarBirth"
+                    Margin="0,0,0,05"
+                    HorizontalAlignment="Stretch"
+                    DateChanged="CalendarDatePicker_DateChanged"
+                    Header="Date of birthday"
+                    PlaceholderText="Pick ur birthday date" />
+                <InfoBadge
+                    x:Name="badgeCalendar"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#C42B1C">
+                    <InfoBadge.IconSource>
+                        <FontIconSource Glyph="&#xE783;" />
+                    </InfoBadge.IconSource>
+                </InfoBadge>
+
+                <TextBox
+                    Margin="5"
+                    Header="Telephone (Optional)"
+                    PlaceholderText="+57" />
+                <Button
+                    x:Name="btnRegister"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Click="btnRegister_Click">
+                    <TextBlock>
+                        <Bold>SIGN UP</Bold>
+                    </TextBlock>
+                </Button>
+                <TeachingTip
+                    x:Name="TeachingTip"
+                    Title="Ha ocurrido un error"
+                    IsOpen="False"
+                    PreferredPlacement="Top">
+                    <TeachingTip.IconSource>
+                        <FontIconSource Glyph="&#xE7BA;" />
+                    </TeachingTip.IconSource>
+                </TeachingTip>
+                <InfoBar
+                    x:Name="infoSet"
+                    IsOpen="False"
+                    Message="Revisa que todos los marcos esten perfectamente puestos"
+                    Opacity="1"
+                    Severity="Error" />
+            </StackPanel>
+        </ScrollView>
     </Grid>
 </Window>

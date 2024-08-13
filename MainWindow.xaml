@@ -14,6 +14,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock
+            x:Name="txtLogInUp"
             Margin="25"
             HorizontalAlignment="Center"
             FontFamily="TIMES NEW ROMAN"
@@ -27,10 +28,12 @@
                 HorizontalAlignment="Stretch"
                 Orientation="Vertical">
                 <TextBox
+                    x:Name="txtIDLogin"
                     Margin="5"
                     Header="ID"
                     PlaceholderText="Enter your ID" />
                 <PasswordBox
+                    x:Name="pswBox"
                     Margin="5"
                     Header="Password"
                     PasswordChar="*"
@@ -55,7 +58,7 @@
                 </StackPanel>
                 <InfoBar
                     x:Name="infoSet"
-                    IsOpen="True"
+                    IsOpen="False"
                     Message="Wrong credentials"
                     Severity="Error" />
             </StackPanel>

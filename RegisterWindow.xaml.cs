@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,7 +29,9 @@ namespace EMRMS
     public sealed partial class RegisterWindow : Window
     {
         bool[] _checkers;
-        public const int Height = 885, Width = 600;
+
+        public const int maxHeight = 900, maxWidth = 800;
+        public const int minHeight = 500, minWidth = 600;
         public RegisterWindow()
         {
             this.InitializeComponent();
@@ -39,14 +42,22 @@ namespace EMRMS
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Activate();
             };
-            AppWindow.Resize(new Windows.Graphics.SizeInt32(Width, Height));
+            AppWindow.Resize(new Windows.Graphics.SizeInt32(maxWidth, maxHeight));
             this.SizeChanged += (sender, e) =>
             {
-                AppWindow.Resize(new Windows.Graphics.SizeInt32(Width, Height));
+                AppWindow.Resize(new Windows.Graphics.SizeInt32
+                    (AppWindow.Size.Width >= minWidth && AppWindow.Size.Width <= maxWidth
+                    ? AppWindow.Size.Width : AppWindow.Size.Width < minWidth 
+                    ? minWidth : maxWidth,
+
+                    AppWindow.Size.Height >= minHeight && AppWindow.Size.Height <= maxHeight
+                    ? AppWindow.Size.Height : AppWindow.Size.Height < minHeight
+                    ? minHeight : maxHeight)
+                    );
             };
             TeachingTip.Target = null;
-            /*Preload*/
 
+            changelang("us");
             #region Preload Animations (idk why i need do this for this shit working)
                 var infoBarVisual = ElementCompositionPreview.GetElementVisual(infoSet);
                 var compositor = infoBarVisual.Compositor;
@@ -57,7 +68,22 @@ namespace EMRMS
                 infoBarVisual.StartAnimation("Opacity", fadeInAnim);
             #endregion
         }
+        private void changelang(string lang)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
+            txtTitle.Text = Properties.Lang.Register;
+            txtID.Header = Properties.Lang.HeaderID;
+            txtID.PlaceholderText = Properties.Lang.PlaceHolderID;
+            txtName.Header = Properties.Lang.HeaderName;
+            txtName.PlaceholderText = Properties.Lang.PlaceHolderName;
+            txtPsw.Header = Properties.Lang.HeaderPassword;
+            txtPsw.PlaceholderText = Properties.Lang.PlaceHolderPassword;
+            calendarBirth.Header = Properties.Lang.HeaderCalendar;
+            calendarBirth.PlaceholderText = Properties.Lang.PlaceHolderCalendar;
+            infoSet.Message = Properties.Lang.IncorrectRegister;
+        }
         private void txtID_TextChanged(object sender, TextChangedEventArgs e)
         {
             TeachingTip.IsOpen = false;
@@ -158,7 +184,11 @@ namespace EMRMS
                 }
             }
             infoSet.IsOpen = false;
-            DialogWindows dialogWindows = new DialogWindows("Registro correcto", "Se pudo concretar el registro", this);
+            
+            DialogWindows dialogWindows = new DialogWindows(
+                Properties.Lang.SuccessfulRegTitle,
+                Properties.Lang.SuccessfulRegSubTitle, 
+                this);
 
             TaskCompletionSource<bool> _tcs;
             _tcs = new TaskCompletionSource<bool>();
