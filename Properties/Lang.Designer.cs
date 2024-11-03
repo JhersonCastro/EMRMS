@@ -70,11 +70,11 @@ namespace EMRMS.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID.
+        ///   Looks up a localized string similar to Email.
         /// </summary>
-        internal static string HeaderID {
+        internal static string HeaderEmail {
             get {
-                return ResourceManager.GetString("HeaderID", resourceCulture);
+                return ResourceManager.GetString("HeaderEmail", resourceCulture);
             }
         }
         
@@ -124,11 +124,11 @@ namespace EMRMS.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your ID.
+        ///   Looks up a localized string similar to Enter your email.
         /// </summary>
-        internal static string PlaceHolderID {
+        internal static string PlaceHolderEmail {
             get {
-                return ResourceManager.GetString("PlaceHolderID", resourceCulture);
+                return ResourceManager.GetString("PlaceHolderEmail", resourceCulture);
             }
         }
         

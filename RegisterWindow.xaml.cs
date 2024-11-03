@@ -1,3 +1,4 @@
+using EMRMS.Utilities;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Hosting;
@@ -61,8 +62,8 @@ namespace EMRMS
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             txtTitle.Text = Properties.Lang.Register;
-            txtID.Header = Properties.Lang.HeaderID;
-            txtID.PlaceholderText = Properties.Lang.PlaceHolderID;
+            txtEmail.Header = Properties.Lang.HeaderEmail;
+            txtEmail.PlaceholderText = Properties.Lang.PlaceHolderEmail;
             txtName.Header = Properties.Lang.HeaderName;
             txtName.PlaceholderText = Properties.Lang.PlaceHolderName;
             txtPsw.Header = Properties.Lang.HeaderPassword;
@@ -72,33 +73,10 @@ namespace EMRMS
             infoSet.Message = Properties.Lang.IncorrectRegister;
             TeachingTip.Title = Properties.Lang.TeachingTipTitleRegister;
         }
-        private void txtID_TextChanged(object sender, TextChangedEventArgs e)
+        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
             TeachingTip.IsOpen = false;
-            try
-            {
-                long.Parse(txtID.Text);
-                if (txtID.Text == string.Empty || txtID.Text.Length < 8)
-                {
-                    TeachingTip.Subtitle = Properties.Lang.TeachingTipIDMin8;
-                    TeachingTip.IsOpen = true;
-                    badgeID.Visibility = Visibility.Visible;
-                    _checkers[0] = false;
-                }
-                else
-                {
-                    TeachingTip.IsOpen = false;
-                    badgeID.Visibility = Visibility.Collapsed;
-                    _checkers[0] = true;
-                }
-            }
-            catch (Exception)
-            {
-                badgeID.Visibility = Visibility.Visible;
-                TeachingTip.Subtitle = Properties.Lang.TeachingTipIDMustNumber;
-                _checkers[0] = false;
-                TeachingTip.IsOpen = true;
-            }
+            _checkers[0] = true;
         }
         private void txtName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -174,11 +152,17 @@ namespace EMRMS
                 }
             }
             infoSet.IsOpen = false;
-
+            
+            
             DialogWindows dialogWindows = new DialogWindows(
                 Properties.Lang.SuccessfulRegTitle,
                 Properties.Lang.SuccessfulRegSubTitle,
                 this);
+            SQLCON.ExecuteInsertUser(txtNickName.Text,
+                txtName.Text,
+                calendarBirth.Date.Value.Date,
+                txtEmail.Text,
+                txtPsw.Password);
 
             TaskCompletionSource<bool> _tcs;
             _tcs = new TaskCompletionSource<bool>();

@@ -28,8 +28,12 @@ namespace EMRMS
             MaxHeight = (int)(txtTitle.FontSize + txtSubtitle.FontSize + btnCheck.FontSize + 150);
 
             AppWindow.Resize(new SizeInt32(MaxWidth, MaxHeight));
-            win = previousWindows;
-            win.AppWindow.Hide();
+            if (previousWindows != null)
+            {
+                win = previousWindows;
+                win.AppWindow.Hide();
+            }
+            this.Activate();
         }
 
         private void DialogWindows_SizeChanged(object sender, WindowSizeChangedEventArgs args)
@@ -39,7 +43,8 @@ namespace EMRMS
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            win.AppWindow.Show();
+            if (win != null)
+                win.AppWindow.Show();
             this.Close();
         }
     }

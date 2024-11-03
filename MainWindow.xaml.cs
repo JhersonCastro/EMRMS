@@ -1,3 +1,4 @@
+using EMRMS.Utilities;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Hosting;
 using System;
@@ -19,7 +20,7 @@ namespace EMRMS
         public MainWindow()
         {
             this.InitializeComponent();
-            Users.User sampleUser = new Users.User();
+            Users.User sampleUser = new Users.User("5");
             sampleUser.Activate();
             AppWindow.Resize(new Windows.Graphics.SizeInt32(minWidth, minHeight));
             this.SizeChanged += (sender, e) =>
@@ -44,6 +45,8 @@ namespace EMRMS
             fadeInAnim.Duration = TimeSpan.FromSeconds(1);
             infoBarVisual.StartAnimation("Opacity", fadeInAnim);
             #endregion
+
+
         }
         public void changeLang(string lang)
         {
@@ -53,9 +56,9 @@ namespace EMRMS
             txtLogInUp.Text = Properties.Lang.Login;
 
             txtIDLogin.Header
-                = Properties.Lang.HeaderID;
+                = Properties.Lang.HeaderEmail;
             txtIDLogin.PlaceholderText
-                = Properties.Lang.PlaceHolderID;
+                = Properties.Lang.PlaceHolderEmail;
 
             pswBox.Header =
                 Properties.Lang.HeaderPassword;
@@ -71,6 +74,7 @@ namespace EMRMS
         }
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
+                
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Activate();
             this.Close();
@@ -79,9 +83,10 @@ namespace EMRMS
         private void btnLgn_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Logica del login para hacer
-            if (false)
+            string id = SQLCON.ExecuteSearchUserByCredentials(txtIDLogin.Text, pswBox.Password);
+            if (id != "")
             {
-
+                Users.User user = new Users.User(id);
             }
             else
             {

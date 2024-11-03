@@ -27,21 +27,7 @@
                 Margin="20,0,20,0"
                 HorizontalAlignment="Stretch"
                 Orientation="Vertical">
-                <TextBox
-                    x:Name="txtID"
-                    Margin="5"
-                    Header="ID"
-                    PlaceholderText="Enter your ID"
-                    TextChanged="txtID_TextChanged" />
-                <InfoBadge
-                    x:Name="badgeID"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Background="#C42B1C">
-                    <InfoBadge.IconSource>
-                        <FontIconSource Glyph="&#xE783;" />
-                    </InfoBadge.IconSource>
-                </InfoBadge>
+                
 
                 <TextBox
                     x:Name="txtName"
@@ -51,16 +37,31 @@
                     TextChanged="txtName_TextChanged" />
 
                 <TextBox
-                    x:Name="txtLastName"
+                    x:Name="txtNickName"
                     Margin="5"
-                    Header="Last Name"
-                    PlaceholderText="Enter your last name"
+                    Header="Nick Name"
+                    PlaceholderText="Enter your Nick name"
                     TextChanged="txtName_TextChanged" />
                 <InfoBadge
                     x:Name="badgeName"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Background="#C42B1C">
+                    <InfoBadge.IconSource>
+                        <FontIconSource Glyph="&#xE783;" />
+                    </InfoBadge.IconSource>
+                </InfoBadge>
+                <TextBox
+    x:Name="txtEmail"
+    Margin="5"
+    Header="Email"
+    PlaceholderText="Enter your email"
+    TextChanged="txtEmail_TextChanged" />
+                <InfoBadge
+    x:Name="badgeEmail"
+    HorizontalAlignment="Right"
+    VerticalAlignment="Top"
+    Background="#C42B1C">
                     <InfoBadge.IconSource>
                         <FontIconSource Glyph="&#xE783;" />
                     </InfoBadge.IconSource>

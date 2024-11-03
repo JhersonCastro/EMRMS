@@ -120,8 +120,8 @@
   <data name="HeaderCalendar" xml:space="preserve">
     <value>Date of birth</value>
   </data>
-  <data name="HeaderID" xml:space="preserve">
-    <value>ID</value>
+  <data name="HeaderEmail" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="HeaderName" xml:space="preserve">
     <value>Name</value>
@@ -138,8 +138,8 @@
   <data name="PlaceHolderCalendar" xml:space="preserve">
     <value>Pick your born date</value>
   </data>
-  <data name="PlaceHolderID" xml:space="preserve">
-    <value>Enter your ID</value>
+  <data name="PlaceHolderEmail" xml:space="preserve">
+    <value>Enter your email</value>
   </data>
   <data name="PlaceHolderName" xml:space="preserve">
     <value>Enter your name</value>
