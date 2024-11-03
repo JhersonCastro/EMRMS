@@ -120,7 +120,7 @@ namespace EMRMS
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
             TeachingTip.IsOpen = false;
-            if ((DateTime.Now.Year - calendarBirth.Date.Value.Date.Year) < 18)
+            if ((DateTime.UtcNow.Year - calendarBirth.Date.Value.Date.Year) < 18)
             {
                 TeachingTip.Subtitle = Properties.Lang.TeachingTipAdultReq;
                 TeachingTip.IsOpen = true;
