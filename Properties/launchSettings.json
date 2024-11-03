@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EMRMS (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EMRMS (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

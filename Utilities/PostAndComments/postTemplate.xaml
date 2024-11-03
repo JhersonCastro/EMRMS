@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="EMRMS.Utilities.PostAndComments.postTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EMRMS.Utilities.PostAndComments"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    SizeChanged="Page_SizeChanged"
+    Background="Transparent">
+
+    <Grid>
+        <RelativePanel  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="txtBody" Text="" 
+                   TextWrapping="Wrap"
+                   RelativePanel.AlignTopWithPanel="True"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.LeftOf="txtDateTime"
+               Margin="0,0,10,0"
+                   />
+            <TextBlock x:Name="txtDateTime" Text="" 
+               RelativePanel.AlignTopWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
+                   ></TextBlock>
+            <Button 
+        x:Name="btnPostDelete"
+            Background="Transparent"
+            RelativePanel.AlignRightWithPanel="True"
+            RelativePanel.Below="txtDateTime"
+            Margin="5"
+            >
+                <FontIcon Glyph="&#xE74D;" />
+            </Button>
+            <Button 
+            x:Name="btnEdit"
+            Background="Transparent"
+            RelativePanel.LeftOf="btnPostDelete"
+        RelativePanel.Below="txtDateTime"
+            Margin="5"
+            >
+                <FontIcon Glyph="&#xE70F;" />
+            </Button>
+
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" RelativePanel.Below="txtBody">
+                <ItemsControl x:Name="ImagePost" ItemsSource="{x:Bind ImageGalleryPost}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VariableSizedWrapGrid x:Name="DynamicWrapGrid" Orientation="Horizontal" ItemWidth="100"  ItemHeight="100"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image Width="100" Height="100"  Stretch="UniformToFill" Source="{Binding Path}" Margin="5"
+                                       />
+                                
+                                <Button 
+                                    Background="Transparent" 
+                                    BorderBrush="Transparent" 
+                                    Click="btnFullScreenOrFtp_Click"
+                                    VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right"
+                                    Visibility="{Binding visibilityBtnFullScreenImage}">
+                                    <FontIcon Glyph="{Binding FileTypeGlyph}" />
+                                </Button>
+                                <Button 
+                                    Background="Transparent" 
+                                    BorderBrush="Transparent" 
+                                    Click="btnFullScreenOrFtp_Click"
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding visibilityBtnFullScreenVideo}">
+                                    <FontIcon Glyph="{Binding FileTypeGlyph}" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+        </RelativePanel>
+    </Grid>
+</Page>
