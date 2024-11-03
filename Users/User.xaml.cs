@@ -175,7 +175,7 @@ namespace EMRMS.Users
             string rtfText;
             post.Document.GetText(TextGetOptions.None, out rtfText);
 
-            SQLCON.ExecuteInsertPost(this.id, rtfText, DateTime.Now, ImageSources.ToList());
+            SQLCON.ExecuteInsertPost(this.id, rtfText, DateTime.UtcNow, ImageSources.ToList());
 
             ImageSources.Clear();
             post.Document.SetText(TextSetOptions.None, string.Empty);
