@@ -75,7 +75,7 @@ namespace EMRMS
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
                 
-            RegisterWindow registerWindow = new RegisterWindow();
+            RegisterWindow registerWindow = new();
             registerWindow.Activate();
             this.Close();
         }

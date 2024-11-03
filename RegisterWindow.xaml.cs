@@ -27,7 +27,7 @@ namespace EMRMS
 
             this.Closed += (sender, e) =>
             {
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new();
                 mainWindow.Activate();
             };
             AppWindow.Resize(new Windows.Graphics.SizeInt32(maxWidth, maxHeight));
@@ -102,7 +102,7 @@ namespace EMRMS
         {
             TeachingTip.IsOpen = false;
 
-            Regex regex = new Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$");
+            Regex regex = new("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$");
 
             if (!regex.Match(txtPsw.Password).Success || txtPsw.Password.Length < 8)
             {
@@ -154,10 +154,7 @@ namespace EMRMS
             infoSet.IsOpen = false;
             
             
-            DialogWindows dialogWindows = new DialogWindows(
-                Properties.Lang.SuccessfulRegTitle,
-                Properties.Lang.SuccessfulRegSubTitle,
-                this);
+            DialogWindows dialogWindows = new(Properties.Lang.SuccessfulRegTitle, Properties.Lang.SuccessfulRegSubTitle, this);
             SQLCON.ExecuteInsertUser(txtNickName.Text,
                 txtName.Text,
                 calendarBirth.Date.Value.Date,

@@ -145,7 +145,7 @@ namespace EMRMS.Utilities
             using (SHA256 sha256 = SHA256.Create())
             {
                 byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
+                StringBuilder builder = new();
                 foreach (byte b in bytes)
                 {
                     builder.Append(b.ToString("x2")); // Convertir a hexadecimal
@@ -158,12 +158,12 @@ namespace EMRMS.Utilities
         {
             var results = new List<Dictionary<string, object>>();
 
-            using (MySqlConnection connection = new MySqlConnection(App.sqlConn))
+            using (MySqlConnection connection = new(App.sqlConn))
             {
                 try
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    using (MySqlCommand command = new(sqlQuery, connection))
                     {
                         // Agregar parámetros si existen
                         if (parameters != null)
@@ -191,7 +191,7 @@ namespace EMRMS.Utilities
                 catch (Exception ex)
                 {
                     // Manejo de excepciones con un mensaje más detallado
-                    DialogWindows s = new DialogWindows("Error", $"No se pudo conectar con la base de datos: {ex.Message}", null);
+                    DialogWindows s = new("Error", $"No se pudo conectar con la base de datos: {ex.Message}", null);
                 }
                 finally
                 {
