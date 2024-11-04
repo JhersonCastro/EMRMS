@@ -20,8 +20,9 @@ namespace EMRMS
         public MainWindow()
         {
             this.InitializeComponent();
-            Users.User sampleUser = new Users.User("5");
+            Users.User sampleUser = new Users.User("3");
             sampleUser.Activate();
+
             AppWindow.Resize(new Windows.Graphics.SizeInt32(minWidth, minHeight));
             this.SizeChanged += (sender, e) =>
             {
@@ -74,7 +75,7 @@ namespace EMRMS
         }
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-                
+
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Activate();
             this.Close();

@@ -1,21 +1,20 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EMRMS.Utilities
 {
     internal class SQLCON
     {
         #region SQL
-        public static void ExecuteInsertPost(int UserID, string body, DateTime postTime, List<Users.MediaItem> files)
+        public static int ExecuteInsertPost(int UserID, string body, DateTime postTime, List<Users.MediaItem> files)
         {
-            string insertPost = "INSERT INTO POSTS (UserID, postDate, BODY) VALUES (@UserID, @postDate, @postContent)";
-            string insertMedia = "INSERT INTO FILES (PostID, fileType, fileUri) VALUES (@PostID, @FileType, @fileUri)";
-
+            string insertPost = "INSERT INTO posts (UserID, postDate, BODY) VALUES (@UserID, @postDate, @postContent)";
+            string insertMedia = "INSERT INTO files (PostID, fileType, fileUri) VALUES (@PostID, @FileType, @fileUri)";
+            int postId;
             using (var connection = new MySqlConnection(App.sqlConn))
             {
                 connection.Open();
@@ -24,7 +23,7 @@ namespace EMRMS.Utilities
                     try
                     {
                         // Insertar el post y obtener su ID
-                        int postId;
+
                         using (var command = new MySqlCommand(insertPost, connection, transaction))
                         {
                             command.Parameters.AddWithValue("@UserID", UserID);
@@ -44,38 +43,37 @@ namespace EMRMS.Utilities
                                 command.Parameters.AddWithValue("@PostID", postId);
                                 command.Parameters.AddWithValue("@FileType", file.FileType);
                                 string[] s = { };
-                                if (file.FileType == ".mp4")
-                                     s = file.VideoPath.Split(@"\");
+                                if (file.FileType == "video")
+                                    s = file.VideoPath.Split(@"\");
                                 else
                                     s = file.Path.Split(@"\");
-                                command.Parameters.AddWithValue("@fileUri", s[s.Length-1]);
+                                command.Parameters.AddWithValue("@fileUri", s[s.Length - 1]);
                                 command.ExecuteNonQuery();
                             }
                         }
 
-                        // Confirmar transacción
                         transaction.Commit();
                     }
                     catch (Exception)
                     {
-                        // Revertir transacción si ocurre un error
                         transaction.Rollback();
-                        throw; // Propagar el error para manejo externo
+                        throw;
                     }
                     finally
                     {
                         connection.Close();
+
                     }
                 }
             }
+            return postId;
         }
-
         public static void ExecuteInsertUser(string nickname, string name, DateTime birthDate, string email, string password)
         {
-            string insertUserQuery = "INSERT INTO USERS (nickname, name, bornDate, Privacity, location) " +
+            string insertUserQuery = "INSERT INTO users (nickname, name, bornDate, Privacity, location) " +
                                      "VALUES (@Nickname, @Name, @BornDate, @Privacity, @Location)";
 
-            string insertCredentialQuery = "INSERT INTO CREDENTIAL (UserID, email, passwordField) " +
+            string insertCredentialQuery = "INSERT INTO credential (UserID, email, passwordField) " +
                                            "VALUES (LAST_INSERT_ID(), @Email, @PasswordField)";
 
             string hashedPassword = HashPassword(password);
@@ -119,7 +117,7 @@ namespace EMRMS.Utilities
         public static string ExecuteSearchUserByCredentials(string email, string password)
         {
             string HashedPassword = HashPassword(password);
-            string searchUserQuery = "SELECT * FROM CREDENTIAL WHERE email = @Email AND passwordField = @Password";
+            string searchUserQuery = "SELECT * FROM credential WHERE email = @Email AND passwordField = @Password";
             string result = "";
             using (var connection = new MySqlConnection(App.sqlConn))
             {
@@ -153,7 +151,6 @@ namespace EMRMS.Utilities
                 return builder.ToString();
             }
         }
-
         public static List<Dictionary<string, object>> ExecuteQuery(string sqlQuery, Dictionary<string, object> parameters = null)
         {
             var results = new List<Dictionary<string, object>>();
@@ -190,8 +187,7 @@ namespace EMRMS.Utilities
                 }
                 catch (Exception ex)
                 {
-                    // Manejo de excepciones con un mensaje más detallado
-                    DialogWindows s = new DialogWindows("Error", $"No se pudo conectar con la base de datos: {ex.Message}", null);
+                    Debug.WriteLine(ex.Message);
                 }
                 finally
                 {
@@ -201,7 +197,6 @@ namespace EMRMS.Utilities
 
             return results;
         }
-
         #endregion
     }
 }

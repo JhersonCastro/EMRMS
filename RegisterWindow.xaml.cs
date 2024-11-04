@@ -3,10 +3,10 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 
 namespace EMRMS
@@ -152,23 +152,38 @@ namespace EMRMS
                 }
             }
             infoSet.IsOpen = false;
-            
-            
-            DialogWindows dialogWindows = new DialogWindows(
-                Properties.Lang.SuccessfulRegTitle,
-                Properties.Lang.SuccessfulRegSubTitle,
-                this);
+
+
+            var t = SQLCON.ExecuteQuery("SELECT * FROM users WHERE nickname = @nickname",
+                new Dictionary<string, object> { { "@nickname", txtNickName.Text } });
+
+            if (t.Count != 0)
+            {
+                ContentDialog contentDialog1 = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = "A user with this nickname already exists.",
+                    CloseButtonText = "Close"
+                };
+                contentDialog1.XamlRoot = btnRegister.XamlRoot;
+                await contentDialog1.ShowAsync();
+                return;
+            }
             SQLCON.ExecuteInsertUser(txtNickName.Text,
                 txtName.Text,
                 calendarBirth.Date.Value.Date,
                 txtEmail.Text,
                 txtPsw.Password);
 
-            TaskCompletionSource<bool> _tcs;
-            _tcs = new TaskCompletionSource<bool>();
-            dialogWindows.Closed += (sender, args) => _tcs.SetResult(true);
-            dialogWindows.Activate();
-            await _tcs.Task;
+            ContentDialog contentDialog = new ContentDialog
+            {
+                Title = Properties.Lang.SuccessfulRegTitle,
+                Content = Properties.Lang.SuccessfulRegSubTitle,
+                CloseButtonText = "cerrar"
+            };
+            contentDialog.XamlRoot = btnRegister.XamlRoot;
+            await contentDialog.ShowAsync();
+
 
             this.Close();
         }

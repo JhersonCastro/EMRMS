@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediaToolkit;
+﻿using MediaToolkit;
 using MediaToolkit.Model;
 using MediaToolkit.Options;
-using Org.BouncyCastle.Asn1.Mozilla;
+using System;
 namespace EMRMS.Utilities.Videos
 {
     class VideoThumbnailGen
