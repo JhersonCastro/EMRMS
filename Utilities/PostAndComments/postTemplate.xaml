@@ -25,6 +25,7 @@
                    ></TextBlock>
             <Button 
         x:Name="btnPostDelete"
+                Click="btnPostDelete_Click"
             Background="Transparent"
             RelativePanel.AlignRightWithPanel="True"
             RelativePanel.Below="txtDateTime"
@@ -53,13 +54,15 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Image Width="100" Height="100"  Stretch="UniformToFill" Source="{Binding Path}" Margin="5"
+                                <Image Width="100" Height="100"  Stretch="UniformToFill" 
+                                       Source="{Binding Path}" Margin="5"
                                        />
                                 
                                 <Button 
                                     Background="Transparent" 
                                     BorderBrush="Transparent" 
                                     Click="btnFullScreenOrFtp_Click"
+                                    
                                     VerticalAlignment="Top" 
                                     HorizontalAlignment="Right"
                                     Visibility="{Binding visibilityBtnFullScreenImage}">
